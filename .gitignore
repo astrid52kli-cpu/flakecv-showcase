@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+/data/raw/*
+# the three registration-regression frames are committed (see flakecv/demo.py)
+!/data/raw/261015-tpt1-*.tiff
+.DS_Store
+# regenerable outputs (curve.json is kept: the app reads it)
+/results/figures/
+/results/predict*/
+/results/*.log
+/results/demo.json
+/results/curve_unstable_rank.json
+/results/defects/
+
+# backups written by the app (replaced frames, labels, optical images)
+data/backup/

@@ -1,0 +1,3 @@
+[paths]
+# relative to this file
+data = "data"

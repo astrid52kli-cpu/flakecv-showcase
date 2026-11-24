@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flakecv"
+version = "0.1.0"
+description = "SEM flake segmentation and optical-to-SEM registration for 2D-material flakes on lithographed contacts"
+readme = "README.md"
+# Developed and tested on CPython 3.11. 3.12 is expected to work; not yet verified.
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+# Exact pins on purpose: the regression numbers in the README depend on the
+# exact behaviour of OpenCV, scikit-image and scikit-learn.  Do not loosen
+# these without re-running `flakecv demo` and checking every number.
+# OpenCV is held at 4.x: 5.x changes some return conventions (e.g. the line
+# segment detector returns [] instead of None).
+dependencies = [
+    "numpy==2.4.6",
+    "opencv-python-headless==4.14.0.94",
+    "scikit-image==0.26.0",
+    "scikit-learn==1.9.1",
+    "scipy==1.17.1",
+    "tifffile==2026.3.3",
+    "joblib==1.6.0",
+    "matplotlib==3.11.2",
+    "streamlit==1.67.0",           # the viewer (app/app.py); plain Streamlit only
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.2.0"]
+
+[project.scripts]
+flakecv = "flakecv.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["flakecv*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
