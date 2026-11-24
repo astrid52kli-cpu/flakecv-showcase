@@ -1,3 +1,8 @@
 [paths]
 # relative to this file
 data = "data"
+
+[app]
+# The public demo is read-only: the hand-labelling tab, which writes into
+# data/, is hidden.  Set to true for your own copy.
+allow_writes = false

@@ -58,3 +58,19 @@ def data_root(explicit: str | os.PathLike | None = None, start: Path | None = No
             f'  [paths]\n  data = "data"\n'
             f"in a {CONFIG_NAME} next to your data folder.")
     return p
+
+
+def allow_writes(start: Path | None = None) -> bool:
+    """Whether the app may write into the data folder (labelling, adding or
+    replacing images).  ``FLAKECV_READ_ONLY=1`` / ``=0`` decides if set;
+    otherwise off with
+    ``allow_writes = false`` under ``[app]`` in flakecv.toml (the public
+    demo)."""
+    env = os.environ.get("FLAKECV_READ_ONLY", "").strip()
+    if env:                      # set explicitly: it wins ("0" = writes allowed)
+        return env == "0"
+    cfg = find_config(start)
+    if cfg is None:
+        return True
+    with open(cfg, "rb") as fh:
+        return bool(tomllib.load(fh).get("app", {}).get("allow_writes", True))

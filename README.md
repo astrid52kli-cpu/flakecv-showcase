@@ -76,7 +76,7 @@ data and fails if any number moves by more than 0.005.
   `predict`, `curve`, `figure`, `demo`.
 - An interactive **Streamlit** app to inspect predictions, tune the
   post-processing, run the registration and compare against references.
-- **141 automated tests** (synthetic and real data), run on macOS, Linux and
+- **143 automated tests** (synthetic and real data), run on macOS, Linux and
   Windows by GitHub Actions.
 - Exact dependency pins and a lock file. The model file records its training
   data, library versions and code version, and refuses to load under an
@@ -115,8 +115,8 @@ optical images. `models/default.joblib` is the trained model.
 
 ## Credits
 
-Design, implementation, annotation and evaluation:
-[astrid52kli-cpu](https://github.com/astrid52kli-cpu). SEM images were
+Design, implementation, annotation and evaluation: **Kexin Li**
+([@astrid52kli-cpu](https://github.com/astrid52kli-cpu)). SEM images were
 acquired by colleagues in the lab. Developed with AI coding assistance.
 
 Released under the MIT License.

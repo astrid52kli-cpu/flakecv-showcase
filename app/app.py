@@ -18,7 +18,7 @@ import streamlit as st
 
 from flakecv import analysis as A, baseline, curve as C, figures as FG, io, labels as L, labelui as LU, model as Mdl
 from flakecv.cli import DEFAULT_MODEL, REPO
-from flakecv.config import DataRootError, data_root
+from flakecv.config import DataRootError, allow_writes, data_root
 
 st.set_page_config(page_title="flakecv", page_icon="🔬", layout="wide")
 
@@ -238,8 +238,13 @@ def dataset_panel(fname, from_folder):
 
 
 # ------------------------------------------------------------------ main
-tab_seg, tab_om, tab_lab, tab_def, tab_curve = st.tabs(["Segmentation", "Optical → SEM", "Label (hand)",
-                                                        "Defects (experimental)", "Learning curve"])
+WRITES = allow_writes(start=REPO)
+_names = ["Segmentation", "Optical → SEM"] + (["Label (hand)"] if WRITES else []) + \
+         ["Defects (experimental)", "Learning curve"]
+_tabs = dict(zip(_names, st.tabs(_names)))
+tab_seg, tab_om, tab_def, tab_curve = (_tabs[n] for n in ("Segmentation", "Optical → SEM",
+                                                         "Defects (experimental)", "Learning curve"))
+tab_lab = _tabs.get("Label (hand)")
 
 res = None
 if img is not None and px is not None:
@@ -342,8 +347,10 @@ with tab_om:
         elif got:
             st.caption("Settings changed since the last registration; press the button to run it again.")
 
-with tab_lab:
-    if img is None or px is None:
+with (tab_lab or st.empty()):
+    if not WRITES:
+        pass
+    elif img is None or px is None:
         st.info("Pick a SEM frame from the data folder, or upload a SEM TIFF, in the sidebar.")
     elif root is None:
         st.error("No data folder is configured, so there is nowhere to save the label.")

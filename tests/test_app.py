@@ -51,7 +51,18 @@ def test_app_defects_tab():
     assert any("Candidates" in b.label for b in at.get("download_button"))
 
 
-def test_app_label_tab_renders():
+def test_app_read_only_hides_labelling(monkeypatch):
+    from streamlit.testing.v1 import AppTest
+    monkeypatch.setenv("FLAKECV_READ_ONLY", "1")
+    at = AppTest.from_file(str(REPO / "app" / "app.py"), default_timeout=180)
+    at.run()
+    assert not at.exception, at.exception
+    assert "Label (hand)" not in [t.label for t in at.tabs]
+    assert not any(r.label == "Start from" for r in at.radio)
+
+
+def test_app_label_tab_renders(monkeypatch):
+    monkeypatch.setenv("FLAKECV_READ_ONLY", "0")
     from streamlit.testing.v1 import AppTest
     at = AppTest.from_file(str(REPO / "app" / "app.py"), default_timeout=180)
     at.run()
