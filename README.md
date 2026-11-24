@@ -1,6 +1,9 @@
 # flakecv: finding 2D-material flakes in SEM and optical images
 
 [![tests](https://github.com/astrid52kli-cpu/flakecv-showcase/actions/workflows/tests.yml/badge.svg)](https://github.com/astrid52kli-cpu/flakecv-showcase/actions/workflows/tests.yml)
+[![Open the live demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://flakecv.streamlit.app)
+
+**Live demo: [flakecv.streamlit.app](https://flakecv.streamlit.app)** (sample frames; the first load can take a minute while the app wakes up)
 
 When a device is made from an exfoliated 2D-material flake (here Ta₂Pd₃Te₅) on
 lithographed gold contacts, someone has to trace the flake's outline by hand,

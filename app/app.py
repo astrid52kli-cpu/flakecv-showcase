@@ -17,7 +17,11 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 from flakecv import analysis as A, baseline, curve as C, figures as FG, io, labels as L, labelui as LU, model as Mdl
-from flakecv.cli import DEFAULT_MODEL, REPO
+# The repository is found from this file, not from the installed package:
+# on a non-editable install (e.g. Streamlit Cloud) the package lives in
+# site-packages, away from data/ and models/.
+REPO = Path(__file__).resolve().parent.parent
+DEFAULT_MODEL = REPO / "models" / "default.joblib"
 from flakecv.config import DataRootError, allow_writes, data_root
 
 st.set_page_config(page_title="flakecv", page_icon="🔬", layout="wide")
